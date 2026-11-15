@@ -1,12 +1,11 @@
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import PyPDFLoader, TextLoader, TextLoader
 from langchain_core.prompts import ChatPromptTemplate
 load_dotenv()
 
-data = TextLoader(
-    "document_loaders/notes.txt",
-    encoding="utf-8"
+data = PyPDFLoader(
+    "document_loaders/notes.pdf"
 )
 docs = data.load()
 
@@ -20,7 +19,7 @@ model = ChatOpenAI(
 )
 
 prompt = template.format_messages(data=docs[0].page_content)
-
+#docs[0] cuz context window issue
 
 result = model.invoke(prompt)
 print(result.content)
