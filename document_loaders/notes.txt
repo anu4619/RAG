@@ -1,0 +1,133 @@
+ATTENTION MECHANISM IN DEEP LEARNING
+
+1. What is Attention?
+
+Attention is a mechanism that allows a neural network to focus on the
+most relevant parts of its input when producing an output.
+
+Instead of treating every input token as equally important, the model
+assigns different importance scores to different tokens.
+
+Example: In the sentence “The animal didn’t cross the street because it
+was tired”, attention can help the model connect “it” with “animal”.
+
+2. Why Was Attention Introduced?
+
+Traditional sequence-to-sequence models often used an encoder to
+compress an entire input sequence into a fixed-size context vector.
+
+This can create an information bottleneck, especially for long
+sequences.
+
+Attention helps by allowing the decoder to access different encoder
+hidden states directly, rather than relying only on one fixed context
+vector.
+
+3. Encoder-Decoder Attention
+
+In an encoder-decoder architecture:
+
+-   The encoder reads the input sequence and produces hidden states.
+-   The decoder generates the output sequence one token at a time.
+-   At each decoding step, attention scores indicate which encoder
+    states are most relevant to the current output.
+-   A weighted sum of encoder states forms the context vector.
+
+The context vector is combined with decoder information to help predict
+the next output token.
+
+4. Query, Key, and Value
+
+The Transformer uses three learned representations:
+
+-   Query (Q): What information is the current token looking for?
+-   Key (K): What information does each token offer for matching?
+-   Value (V): What information should be retrieved from each token?
+
+Attention compares queries with keys, then uses the resulting scores to
+combine values.
+
+5. Scaled Dot-Product Attention
+
+The formula is:
+
+    Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k)) V
+
+Where: - Q K^T calculates similarity scores between queries and keys. -
+d_k is the dimension of the key vectors. - Dividing by sqrt(d_k) keeps
+dot products from becoming too large. - Softmax converts scores into
+normalized weights. - Multiplying by V produces a weighted combination
+of value vectors.
+
+6. Self-Attention
+
+Self-attention means that queries, keys, and values are all derived from
+the same input sequence.
+
+It allows each token to incorporate information from other tokens in the
+sequence.
+
+For example, in “The bank was beside the river”, the representation of
+“bank” can use surrounding words to understand its meaning.
+
+7. Multi-Head Attention
+
+Multi-head attention runs several attention operations in parallel.
+
+Each head has its own learned projections of Q, K, and V. Different
+heads can learn different relationships, such as:
+
+-   Syntactic relationships
+-   Long-distance dependencies
+-   Contextual or semantic relationships
+
+The outputs of the heads are concatenated and projected to form the
+final representation.
+
+8. Positional Information
+
+Self-attention alone does not inherently represent token order.
+
+Transformers therefore add positional information to token embeddings so
+the model can distinguish sequences with different word orders.
+
+9. Causal and Padding Masks
+
+-   Causal mask: Prevents a decoder token from attending to future
+    tokens. This supports autoregressive generation.
+-   Padding mask: Prevents attention from being assigned to padding
+    positions.
+
+10. Attention in RAG
+
+In Retrieval-Augmented Generation (RAG):
+
+-   A retriever finds relevant document chunks for a user query.
+-   The language model receives the query and retrieved context.
+-   Attention helps the model relate parts of the query to relevant
+    parts of the supplied context when generating an answer.
+
+Retrieval and attention are different: retrieval selects external
+information, while attention combines information within the model’s
+input representations.
+
+11. Key Takeaways
+
+-   Attention helps models focus on relevant information.
+-   Queries and keys determine attention weights.
+-   Values contain the information being combined.
+-   Self-attention relates tokens within the same sequence.
+-   Multi-head attention learns multiple kinds of relationships in
+    parallel.
+-   Positional information provides sequence-order information.
+-   Attention is a core component of the Transformer architecture.
+
+12. Questions to Review
+
+1.  Why can a fixed-size context vector be a bottleneck?
+2.  What is the difference between self-attention and cross-attention?
+3.  Why is the dot product scaled by sqrt(d_k)?
+4.  What is the purpose of multiple attention heads?
+5.  Why does a Transformer need positional information?
+6.  What does a causal mask prevent?
+7.  How is attention different from document retrieval in a RAG system?
