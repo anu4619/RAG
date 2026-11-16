@@ -21,3 +21,11 @@ result = vectorestore.similarity_search("what is Python used for?",k=2)
 
 for r in result:
     print(r.page_content)
+    print(r.metadata)
+
+retriever = vectorestore.as_retriever()
+docs = retriever.invoke("explain pandas library")
+
+for d in docs:
+    print(d.page_content)
+    print(d.metadata)
