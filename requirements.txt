@@ -27,3 +27,5 @@ numpy==2.1.3
 
 # Optional for notebook/dev
 jupyter==1.1.1
+
+chromadb
